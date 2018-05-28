@@ -1,0 +1,4 @@
+<form #myForm="ngForm" (ngSubmit)="register(myForm.value)">
+  <label for="amount">Enter Ethre:</label><input type="text" name="amount" id="amount" [(ngModel)]="amount" >
+  <button type="submit">Register As Admin</button>
+</form>
