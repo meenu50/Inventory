@@ -37,7 +37,7 @@ export class StockproductComponent implements OnInit {
           if(obj[1]!="")
           {
             obj[4]=obj[4]/100;
-            this.details.push({"pid":obj[0],"pname":obj[1],"brand":obj[2],"quantity":obj[3],"price":obj[4],"date":obj[5]});
+            this.details.push({"pid":obj[0],"pname":obj[1],"brand":obj[2],"quantity":obj[3],"price":obj[4],"dateVal":obj[5]});
           }
         })
         

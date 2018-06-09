@@ -18,12 +18,7 @@ import { CustomerpurchaseComponent } from './customerpurchase/customerpurchase.c
 import { CancelorderComponent } from './cancelorder/cancelorder.component';
 import { CustomerGuard } from './cutomer-guard/customer.guard';
 
-
-
-
-
 const routes: Routes = [
-  
   {
     path: 'home',
     component: HomeComponent
@@ -87,7 +82,7 @@ const routes: Routes = [
 
   { 
     path: '',
-    redirectTo: '/admin',
+    redirectTo: 'admin',
     pathMatch: 'full'
   }
 

@@ -17,7 +17,7 @@
     private _web3: any;
     public account:string;
     private _tokenContract: any;
-    private _tokenContractAddress: string = "0xa6e863a136902deafb812e8b57e096832acc79b3";
+    private _tokenContractAddress: string = "0x3f2089cd5b7518768e84cc198bcdc8aa162b8cab";
 
   constructor() { 
     if (typeof window.web3 !== 'undefined') { 

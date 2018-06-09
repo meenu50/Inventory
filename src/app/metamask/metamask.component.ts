@@ -24,7 +24,7 @@ export class MetamaskComponent implements OnInit {
           meta.router.navigate(['metamask']);
         }
         if(meta._web3.eth.accounts!=meta._web3.eth.accounts[0]){
-          meta.router.navigate(['metamask']);
+          meta.router.navigate(['']);
         }
       }
     }, 200);
