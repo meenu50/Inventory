@@ -2,39 +2,47 @@
   <div class="container-fluid" style="margin-top: 70px; ">
 
           <div class>
-              <form class="form-horizontal">
+              <form class="form-horizontal" [formGroup]="angForm" novalidate >
                 <div>
                  <h3>Add Product Form</h3>
                 </div>
                 <div class="form-group">
                   <label class="control-label col-sm-2" for="productname">Name<font color="red">*</font></label>
                   <div class="col-sm-4">
-                    <input type="text" class="form-control" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' name="productname" [(ngModel)]="productname" placeholder="Enter Product Name" required>
+                    <input  class="form-control" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' name="productname" [(ngModel)]="productname" formControlName="productname" placeholder="Enter Product Name" >
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="control-label col-sm-2" for="brand">Brand<font color="red">*</font></label>
                   <div class="col-sm-4">
-                    <input type="text" class="form-control" name="brand" [(ngModel)]="brand" placeholder="Enter Brand Name">
+                    <input class="form-control" name="brand" [(ngModel)]="brand"  formControlName="brand" placeholder="Enter Brand Name" >
                   </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="quantity">Quantity<font color="red">*</font></label>
                     <div class="col-sm-4">
-                      <input type="number" class="form-control" min="0" name="quantity" [(ngModel)]="quantity" placeholder="Enter Quantity">
+                      <input type="number" class="form-control" min="0" name="quantity" [(ngModel)]="quantity" [value]="quantity" formControlName="quantity" placeholder="Enter Quantity" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="amount">Amount<font color="red">*</font></label>
                     <div class="col-sm-4">
-                      <input type="number" class="form-control" min="1" name="amount"  [(ngModel)]="amount" placeholder="Enter  Amount">
+                      <input type="number" class="form-control" min="1" name="amount"  [(ngModel)]="amount" [value]="amount" formControlName="amount" placeholder="Enter  Amount" required>
                     </div>
                   </div>
 
-
+                
                 <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" (click)="submit()" class="btn btn-default">ADD</button>
+                      <div *ngIf="angForm.controls['productname'].valid ">
+                        <div *ngIf="angForm.controls['brand'].valid"> 
+                          <div *ngIf="angForm.controls['quantity'].valid"> 
+                            <div *ngIf="angForm.controls['amount'].valid">
+                              <button type="submit" (click)="submit()" class="btn btn-default">ADD</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                   </div>
                 </div>
               </form>

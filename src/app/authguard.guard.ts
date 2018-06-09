@@ -14,13 +14,10 @@ import { Web3Service } from './services/web3services.service';
         return this.wcs.check_admin().then(admin => {
           console.log(admin);
            if (admin !=true){
-            console.log("if part");
+           // console.log("if part");
             this.router.navigate(['customer']);
             return false;
           } else {
-            console.log("else part");
-            
-          //this.router.navigate(['admin']);
             return true;
           }
         });

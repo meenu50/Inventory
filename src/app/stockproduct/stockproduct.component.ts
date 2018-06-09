@@ -33,9 +33,11 @@ export class StockproductComponent implements OnInit {
         console.log(element);
         
         this.pro.ViewProduct(element).then(obj=>{
+          console.log(obj);
           if(obj[1]!="")
           {
-            this.details.push({"pid":obj[0],"pname":obj[1],"brand":obj[2],"quantity":obj[3],"price":obj[4],"dateVal":obj[5]});
+            obj[4]=obj[4]/100;
+            this.details.push({"pid":obj[0],"pname":obj[1],"brand":obj[2],"quantity":obj[3],"price":obj[4],"date":obj[5]});
           }
         })
         
@@ -55,7 +57,7 @@ export class StockproductComponent implements OnInit {
                          meta.router.navigate(['metamask']);
                          clearInterval(this.interval);
                      } else {
-                         alert('Address Change Detected Please Refresh Page');
+                       //  alert('Address Change Detected Please Refresh Page');
                      }
                  }
              } else {

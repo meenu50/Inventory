@@ -21,10 +21,10 @@ export class MetamaskComponent implements OnInit {
       if (typeof window.web3 !== 'undefined') {
         meta._web3 = new Web3(window.web3.currentProvider);
         if (meta._web3.eth.accounts[0] !== undefined) {
-          meta.router.navigate(['admin']);
+          meta.router.navigate(['metamask']);
         }
         if(meta._web3.eth.accounts!=meta._web3.eth.accounts[0]){
-          meta.router.navigate(['customer']);
+          meta.router.navigate(['metamask']);
         }
       }
     }, 200);

@@ -5,7 +5,7 @@ import { AlertsService } from 'angular-alert-module';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import swal from 'sweetalert';
-//import { DatePipe } from '@angular/common';
+
 
 
 declare let window: any;
@@ -56,7 +56,7 @@ export class CancelorderComponent implements OnInit {
                          meta.router.navigate(['metamask']);
                          clearInterval(this.interval);
                      } else {
-                         alert('Address Change Detected Please Refresh Page');
+                        /// alert('Address Change Detected Please Refresh Page');
                      }
                  }
              } else {

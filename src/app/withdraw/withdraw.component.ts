@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 
 import { Web3Service } from '../services/web3services.service';
 import { Router } from '@angular/router';
+import { FormBuilder, Validators ,FormGroup,FormControl} from '@angular/forms';
 
 declare let window: any;
 import * as Web3 from 'web3';
 import { NgxSpinnerService } from 'ngx-spinner';
 import swal from 'sweetalert';
+
 
 @Component({
   selector: 'app-withdraw',
@@ -22,9 +24,11 @@ export class WithdrawComponent implements OnInit {
   public account:string;
   public balance:number;
   public bla;
+  angForm: FormGroup;
 
-
-  constructor(public pro: Web3Service,private router:Router,private spinner: NgxSpinnerService) { }
+  constructor(public pro: Web3Service,private router:Router,private spinner: NgxSpinnerService,private fb: FormBuilder) { 
+      this.createForm();
+  }
 
   ngOnInit() {
     let meta = this;
@@ -56,18 +60,13 @@ export class WithdrawComponent implements OnInit {
         //  meta.alltablework();
       }, 20000);
   }
- check(e){
-     if(this.amount<=this.balance){
-         this.bla="Keep minmum balance 1";
-     }
-     else if(this.amount>=this.balance){
-         this.bla="Your balance is to low"
-     }
-     else{
-         this.bla="";
-     }
- }
-  
+
+ createForm() {
+    this.angForm = this.fb.group({
+        amount: ['', Validators.required ],
+    });
+  }
+
   Withdraw(){
       let meta=this;
       meta.spinner.show();
@@ -76,13 +75,15 @@ export class WithdrawComponent implements OnInit {
         if(res==0){
           this.spinner.hide();
           swal("operation rejected");
+          this.amount="";
           window.location.reload();
       }
       else{ 
           meta.pro.hash(res).then(result=>{
             this.spinner.hide(); 
             swal(result);   
-            window.location.reload();           
+            this.amount="";
+           // window.location.reload();           
          })
       }
      })

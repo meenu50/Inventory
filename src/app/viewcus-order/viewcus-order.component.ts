@@ -7,6 +7,7 @@ declare let window: any;
 import * as Web3 from 'web3';
 
 
+
 @Component({
   selector: 'app-viewcus-order',
   templateUrl: './viewcus-order.component.html',
@@ -54,7 +55,8 @@ export class ViewcusOrderComponent implements OnInit {
                          meta.router.navigate(['metamask']);
                          clearInterval(this.interval);
                      } else {
-                         alert('Address Change Detected Please Refresh Page');
+                        // alert('Address Change Detected Please Refresh Page');
+                       // window.location.reload();
                      }
                  }
              } else {

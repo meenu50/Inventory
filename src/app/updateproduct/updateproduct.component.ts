@@ -3,9 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { Web3Service } from '../services/web3services.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
 
 declare let window: any;
 import * as Web3 from 'web3';
+
 
 @Component({
   selector: 'app-updateproduct',
@@ -13,25 +15,29 @@ import * as Web3 from 'web3';
   styleUrls: ['./updateproduct.component.scss']
 })
 export class UpdateproductComponent implements OnInit {
-  public productid: number;
-  public quantity : number;
-  public price: number;
+  public productid;
+  public quantity;
+  public price;
   public details=[];
   public  _web3: any;
   public id1: any;
   public id2: any;
   public account:string;
   public balance:number;
+  public id=[];
+   angForm: FormGroup;
 
-  constructor(public pro: Web3Service,private router:Router,private spinner: NgxSpinnerService) { }
+  constructor(public pro: Web3Service,private router:Router,private spinner: NgxSpinnerService,private fb: FormBuilder) { 
+    this.createForm();
+  }
 
   ngOnInit() {
     this.pro.getproductCount().then(product=>{
       product.forEach(element => {
-        console.log(element);
+       // console.log(element);
         
         this.pro.ViewProduct(element).then(obj=>{
-          console.log(obj);
+         // console.log(obj);
           if(obj[3]==0 && obj[1]!="")
           {
             this.details.push({"pid":obj[0],"pname":obj[1],"brand":obj[2],"quantity":obj[3],"price":obj[4]});
@@ -54,7 +60,7 @@ export class UpdateproductComponent implements OnInit {
                        meta.router.navigate(['metamask']);
                        clearInterval(this.interval);
                    } else {
-                       alert('Address Change Detected Please Refresh Page');
+                     //  alert('Address Change Detected Please Refresh Page');
                    }
                }
            } else {
@@ -69,22 +75,57 @@ export class UpdateproductComponent implements OnInit {
       //  meta.alltablework();
     }, 20000);
   }
+  createForm() {
+    this.angForm = this.fb.group({
+       productid: ['', Validators.required ],
+       quantity: ['', Validators.required ],
+       price: ['', Validators.required ]
+    });
+  }
+
+  check(){
+     this.pro.ViewProduct(this.productid).then(res=>{
+           if(res[0]== this.productid){
+            
+           }
+           
+     })
+  }
+  checkOut(){
+    this.pro.ViewProduct(this.productid).then(res=>{
+          if(res[0]== this.productid){
+            //swal("valid");
+          }
+          else{
+             swal("Invalid Product Id ");
+          }
+    })
+ }
+
   Product(){
     let meta=this;
+    this.price=this.price*100;
     meta.spinner.show();
     meta.pro.update_product(this.productid,this.quantity,this.price).then(res=>{
       if(res==0){
         this.spinner.hide();
         swal("operation rejected");
-        window.location.reload();
+        this.productid= "";
+        this.quantity="";
+        this.price="";
+        // window.location.reload();
     }
     else{ 
         meta.pro.hash(res).then(result=>{
           this.spinner.hide(); 
-          swal(result);   
-          window.location.reload();           
+          swal(result);
+          this.productid= "";
+          this.quantity="";
+          this.price="";
+
+          // window.location.reload();           
        })
-    }
+    }   
      })
   }
 }

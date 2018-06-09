@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {NG_VALIDATORS} from '@angular/forms';
 
+
+
  
 
 declare let window: any;
@@ -26,9 +28,13 @@ export class ProductComponent implements OnInit {
   public brand;
   public quantity;
   public amount;
-  
+  angForm: FormGroup;
 
-  constructor(private web3Service:Web3Service,private router:Router,private spinner: NgxSpinnerService) {}
+  constructor(private web3Service:Web3Service,private router:Router,private spinner: NgxSpinnerService,private fb: FormBuilder) {
+  
+    this.createForm();
+
+  }
   
   public  _web3: any;
   public id1: any;
@@ -55,7 +61,7 @@ export class ProductComponent implements OnInit {
                          meta.router.navigate(['metamask']);
                          clearInterval(this.interval);
                      } else {
-                         alert('Address Change Detected Please Refresh Page');
+                         //alert('Address Change Detected Please Refresh Page');
                      }
                  }
              } else {
@@ -69,23 +75,37 @@ export class ProductComponent implements OnInit {
           meta.web3Service.getAccount().then(account => this.balance = account);
       }, 20000);
   }
-
+  createForm() {
+    this.angForm = this.fb.group({
+       productname: ['', Validators.required ],
+       brand: ['', Validators.required ],
+       quantity: ['', Validators.required ],
+       amount: ['', Validators.required ]
+    });
+  }
   submit(){
-      let meta=this;
-     meta.spinner.show();
-    
+    let meta=this;
+    meta.spinner.show();
+    this.amount=this.amount*100;
      meta.web3Service.Product(this.productname,this.brand,this.quantity,this.amount).then((res)=>{ 
         // console.log(res);
          if(res==0){
              this.spinner.hide();
              swal("operation rejected");
-             window.location.reload();
+             this.productname="";
+             this.quantity="";
+             this.brand="";
+             this.amount="";    
          }
          else{ 
              meta.web3Service.hash(res).then(result=>{
                this.spinner.hide(); 
-               swal(result);    
-               window.location.reload();      
+               swal(result);
+               this.productname="";
+               this.quantity="";
+               this.brand="";
+               this.amount="";    
+                    
             })
          }
     });

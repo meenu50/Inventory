@@ -4,9 +4,11 @@ import { Web3Service } from '../services/web3services.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import swal from 'sweetalert';
+import { FormBuilder, Validators ,FormGroup,FormControl} from '@angular/forms';
 
 declare let window: any;
 import * as Web3 from 'web3';
+import $ from 'jquery';
 
 
 @Component({
@@ -22,8 +24,11 @@ export class TransferownershipComponent implements OnInit {
   public id2: any;
   public account:string;
   public balance:number;
+  angForm: FormGroup;
 
-  constructor(public pro: Web3Service,private router:Router,private spinner: NgxSpinnerService) { }
+  constructor(public pro: Web3Service,private router:Router,private spinner: NgxSpinnerService,private fb: FormBuilder) {
+    this.createForm();
+   }
 
   ngOnInit() {
     let meta = this;
@@ -40,7 +45,7 @@ export class TransferownershipComponent implements OnInit {
                          meta.router.navigate(['metamask']);
                          clearInterval(this.interval);
                      } else {
-                         alert('Address Change Detected Please Refresh Page');
+                        // alert('Address Change Detected Please Refresh Page');
                      }
                  }
              } else {
@@ -56,6 +61,11 @@ export class TransferownershipComponent implements OnInit {
       }, 20000);
     
   }
+  createForm() {
+    this.angForm = this.fb.group({
+       address: ['', Validators.required ],
+    });
+  }
   transfer(){
     let meta=this;
     console.log(this.address);
@@ -64,11 +74,13 @@ export class TransferownershipComponent implements OnInit {
       if(res==0){
         this.spinner.hide();
         swal("operation rejected");
+        this.address="";
     }
     else{ 
         meta.pro.hash(res).then(result=>{
           this.spinner.hide(); 
           swal(result); 
+          this.address="";
           window.location.reload();             
        })
     }

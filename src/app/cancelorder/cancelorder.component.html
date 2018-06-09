@@ -8,6 +8,7 @@
             <div class="col-sm-12" >
                 <div>
                     <h5>ORDER DETAILS</h5>
+                    <h5 style="color:blue;">(Cancel Within One Hour)</h5>
                     <br>
                 </div>
   
@@ -44,7 +45,7 @@
                 <td>{{order.quantity}}</td>
                 <td>{{order.price}}</td>
                 <td>{{order.dateVal | date:'d/M/y'}}</td>
-               <td><button type="submit" (click)="cancel(order.oid,order.pid);" class="btn btn-default">cancel</button></td>
+               <td><button type="submit" id="cancel" (click)="cancel(order.oid,order.pid);" class="btn btn-default">cancel</button></td>
             </tr>   
         </tbody>
       <!--Table body-->

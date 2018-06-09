@@ -4,9 +4,11 @@ import { Web3Service } from '../services/web3services.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import swal from 'sweetalert';
+import { FormBuilder, Validators ,FormGroup,FormControl} from '@angular/forms';
 
 declare let window: any;
 import * as Web3 from 'web3';
+
 
 @Component({
   selector: 'app-customerpurchase',
@@ -25,9 +27,11 @@ export class CustomerpurchaseComponent implements OnInit {
   public id2: any;
   public account:string;
   public balance:number;
+  angForm: FormGroup;
 
-
-  constructor(public pro: Web3Service,private router:Router,private spinner: NgxSpinnerService) { }
+  constructor(public pro: Web3Service,private router:Router,private spinner: NgxSpinnerService, private fb: FormBuilder) {
+    this.createForm();
+   }
 
   ngOnInit() {
     this.pro.getproductCount().then(product=>{
@@ -38,6 +42,7 @@ export class CustomerpurchaseComponent implements OnInit {
           console.log(obj);
           if(obj[1]!="")
           {
+            obj[4]=obj[4]/100;
             this.details.push({"pid":obj[0],"pname":obj[1],"brand":obj[2],"quantity":obj[3],"price":obj[4],"dateVal":obj[5]});
           }
         })
@@ -48,6 +53,7 @@ export class CustomerpurchaseComponent implements OnInit {
       order.forEach(element => {
           this.pro.ViewCustomer(element).then(obj=>{
            if(obj[3]!="" && obj[2]==this.pro.account && obj[8]==1){
+            // obj[6]=obj[6]/100;
               this.list.push({"oid":obj[0],"pid":obj[1],"cusid":obj[2],"pname":obj[3],"quantity":obj[5],"price":obj[6],"dateVal":obj[7]});
            }       
          })         
@@ -67,7 +73,7 @@ export class CustomerpurchaseComponent implements OnInit {
                        meta.router.navigate(['metamask']);
                        clearInterval(this.interval);
                    } else {
-                       alert('Address Change Detected Please Refresh Page');
+                      // alert('Address Change Detected Please Refresh Page');
                    }
                }
            } else {
@@ -86,10 +92,48 @@ export class CustomerpurchaseComponent implements OnInit {
   
   onKey(e){
     this.pro.ViewProduct1(this.productid).then(res=>{
-      this.price=res[4]*this.quantity;
+      this.price=(res[4]/100)*this.quantity;
       console.log(this.price);
     })
   }
+
+  createForm() {
+    this.angForm = this.fb.group({
+        productid: ['', Validators.required ],
+        quantity: ['', Validators.required ],
+        price: ['', Validators.required ],
+    });
+  }
+
+  check(){
+    this.pro.ViewProduct(this.productid).then(res=>{
+          if(res[0]== this.productid){
+           
+          }
+          
+    })
+ }
+ checkOut(){
+   this.pro.ViewProduct(this.productid).then(res=>{
+         if(res[0]== this.productid && res[4]!=0){
+           //swal("valid");
+         }
+         else{
+            swal("Invalid Product Id");
+         }
+   })
+}
+quantitycheckOut(){
+  this.pro.ViewProduct(this.productid).then(res=>{
+        if( res[4]!=0){
+          swal("valid");
+        }
+        else{
+           swal("Out Of Stock");
+        }
+  })
+}
+
 
   order(){
     let meta=this;
@@ -98,12 +142,18 @@ export class CustomerpurchaseComponent implements OnInit {
       if(res==0){
         this.spinner.hide();
         swal("operation rejected");
+        this.productid="";
+        this.quantity="";
+        this.price="";
         window.location.reload();
     }
     else{ 
         meta.pro.hash(res).then(result=>{
           this.spinner.hide(); 
           swal(result); 
+          this.productid="";
+          this.quantity="";
+          this.price="";
           window.location.reload();             
        })
     }

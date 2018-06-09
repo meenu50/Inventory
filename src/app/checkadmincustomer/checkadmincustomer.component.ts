@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 declare let window: any;
 import * as Web3 from 'web3';
-
+import $ from 'jquery';
 @Component({
   selector: 'app-checkadmincustomer',
   templateUrl: './checkadmincustomer.component.html',

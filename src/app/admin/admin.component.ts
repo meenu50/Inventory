@@ -5,6 +5,7 @@ declare let window: any;
 import * as Web3 from 'web3';
 
 
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -18,8 +19,12 @@ export class AdminComponent implements OnInit {
   public id2: any;
   public account:string;
   public balance:number;
+  public product;
 
-  constructor(private wcs:Web3Service,private router:Router){}
+  constructor(private wcs:Web3Service,private router:Router){
+    
+  }
+ 
   ngOnInit() 
     {
         let meta = this;
@@ -37,6 +42,7 @@ export class AdminComponent implements OnInit {
                          clearInterval(this.interval);
                      } else {
                          alert('Address Change Detected Please Refresh Page');
+                         window.location.reload();
                      }
                  }
              } else {
@@ -50,7 +56,9 @@ export class AdminComponent implements OnInit {
           meta.wcs.getAccount().then(account => this.balance = account);
         //  meta.alltablework();
       }, 20000);
+      
     }
+   
     ngOnDestroy() {
       if (this.id1) {
         clearInterval(this.id1);

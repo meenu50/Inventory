@@ -5,6 +5,7 @@ import { Web3Service } from '../services/web3services.service';
 declare let window: any;
 import * as Web3 from 'web3';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

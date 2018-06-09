@@ -34,6 +34,37 @@ const routes: Routes = [
   path:"metamask",
   component:MetamaskComponent
 },
+{ 
+  path: 'admin',
+  component: AdminComponent,
+  canActivate:[AuthguardGuard], 
+   children:[
+    {
+      path: 'product',
+      component: ProductComponent
+    },
+    {
+      path: 'updateproduct',
+      component: UpdateproductComponent
+    },
+    {
+      path: 'viewcustomerorder',
+      component: ViewcusOrderComponent
+    },
+    {
+      path: 'stockproduct',
+      component: StockproductComponent
+    },
+    {
+      path: 'transferowner',
+      component: TransferownershipComponent
+    },
+    {
+      path: 'withdraw',
+      component: WithdrawComponent
+    },
+  ]
+},
 
 {
   path: 'customer',
@@ -51,37 +82,7 @@ const routes: Routes = [
   ]
 },
 
-  { 
-    path: 'admin',
-    component: AdminComponent,
-    canActivate:[AuthguardGuard], 
-     children:[
-      {
-        path: 'product',
-        component: ProductComponent
-      },
-      {
-        path: 'updateproduct',
-        component: UpdateproductComponent
-      },
-      {
-        path: 'viewcustomerorder',
-        component: ViewcusOrderComponent
-      },
-      {
-        path: 'stockproduct',
-        component: StockproductComponent
-      },
-      {
-        path: 'transferowner',
-        component: TransferownershipComponent
-      },
-      {
-        path: 'withdraw',
-        component: WithdrawComponent
-      },
-    ]
-  },
+ 
 
 
   { 

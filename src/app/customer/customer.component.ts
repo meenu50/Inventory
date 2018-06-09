@@ -36,7 +36,8 @@ export class CustomerComponent implements OnInit {
                          meta.router.navigate(['metamask']);
                          clearInterval(this.interval);
                      } else {
-                         alert('Address Change Detected Please Refresh Page');
+                         //alert('Address Change Detected Please Refresh Page');
+                        
                      }
                  }
              } else {

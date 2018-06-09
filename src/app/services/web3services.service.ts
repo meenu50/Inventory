@@ -17,7 +17,7 @@
     private _web3: any;
     public account:string;
     private _tokenContract: any;
-    private _tokenContractAddress: string = "0x9c0fa4c1413d70d593145ada018f71c282bff3dd";
+    private _tokenContractAddress: string = "0xa6e863a136902deafb812e8b57e096832acc79b3";
 
   constructor() { 
     if (typeof window.web3 !== 'undefined') { 
@@ -249,7 +249,7 @@ public async WithDraw(amount): Promise<any> {
 
   return new Promise((resolve, reject) => {
     let _web3 = this._web3;
-    this._tokenContract.withdraw(amount,{from:account,gas: 600000},function (err, result) {
+    this._tokenContract.withdraw(_web3.toWei(amount),{from:account,gas: 600000},function (err, result) {
       if(err != null) {
        console.log(err);
         resolve(0);
@@ -267,7 +267,7 @@ public async order(a,b,c): Promise<any> {
     let _web3 = this._web3;
     this._tokenContract.order(a,b,{from:account,value:_web3.toWei(c,"ether"),gas: 600000},function (err, result) {
       if(err != null) {
-        reject(err);
+        console.log(err);
         resolve(0);
       }
        resolve(result);
@@ -289,22 +289,7 @@ public async cancel(a,b): Promise<any> {
    });
   }) as Promise<any>;
 }
-public async checking(): Promise<any> {
-  let account = await this.getAccount();
 
-  return new Promise((resolve, reject) => {
-    let _web3 = this._web3;
-    this._tokenContract.owner({from:account,gas: 600000},function (err, result) {
-      0
-      if(err != null) {
-        reject(err);
-      }
-       resolve(result);
-       
-       
-   });
-  }) as Promise<any>;
-}
 
 
  //checking admin
@@ -341,6 +326,7 @@ return new Promise((resolve, reject) => {
 
 }
 
+//hash function
 public async hash(a): Promise<string> {
   let meta = this;
   return new Promise((resolve, reject) => {
@@ -355,23 +341,13 @@ public async hash(a): Promise<string> {
         if(result !== null)
         {
           clearInterval(accountInterval);
-          // console.log("obj 1 :"+result);
-
           if(result.status == 0x1)
           {
-            // console.log("obj "+result.status)
-            resolve("Success");
-         
-            // window.location.reload();
-            
+            resolve("Success");          
           }
           else
           {
-            // console.log("obj "+result.status)
             resolve("Transaction Failed");
-           
-            // window.location.reload();
-            
           }
           
         }
