@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot,Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { Web3Service } from '../services/web3services.service';
+import { Observable } from 'rxjs';
+import { Web3servicesService } from '../services/web3services.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CustomerGuard implements CanActivate {
-  constructor(private wcs:Web3Service,private router:Router){}
+  constructor(private wcs:Web3servicesService,private router:Router){}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
@@ -24,3 +26,4 @@ export class CustomerGuard implements CanActivate {
       });
   }
 }
+

@@ -1,70 +1,56 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { AlertsModule } from 'angular-alert-module';
-
-import { AppRoutingModule } from './app-routing.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
 
 
+
+import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+import { AdminComponent } from './admin/admin.component';
+import { CustomerComponent } from './customer/customer.component';
 import { ProductComponent } from './product/product.component';
 import { UpdateproductComponent } from './updateproduct/updateproduct.component';
-import { ViewcusOrderComponent } from './viewcus-order/viewcus-order.component';
 import { StockproductComponent } from './stockproduct/stockproduct.component';
+import { ViewcusOrderComponent } from './viewcus-order/viewcus-order.component';
 import { TransferownershipComponent } from './transferownership/transferownership.component';
 import { WithdrawComponent } from './withdraw/withdraw.component';
-import{ Web3Service} from './services/web3services.service';
-import { CustomerComponent } from './customer/customer.component';
-import { CustomerpurchaseComponent } from './customerpurchase/customerpurchase.component'
+import { CustomerpurchaseComponent } from './customerpurchase/customerpurchase.component';
 import { CancelorderComponent } from './cancelorder/cancelorder.component';
 import { MetamaskComponent } from './metamask/metamask.component';
-import { AdminComponent } from './admin/admin.component';
 import { AuthguardGuard } from './authguard.guard';
 import { CustomerGuard } from './cutomer-guard/customer.guard';
-import {CheckadmincustomerComponent} from './checkadmincustomer/checkadmincustomer.component'
-import { NgxSpinnerModule } from 'ngx-spinner';
-
-
-
+import { Web3servicesService } from './services/web3services.service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    AdminComponent,
+    CustomerComponent,
     ProductComponent,
     UpdateproductComponent,
-    ViewcusOrderComponent,
     StockproductComponent,
+    ViewcusOrderComponent,
     TransferownershipComponent,
     WithdrawComponent,
-    CustomerComponent,
     CustomerpurchaseComponent,
     CancelorderComponent,
-    MetamaskComponent,
-    AdminComponent,
-    CheckadmincustomerComponent
-  
-   ],
+    MetamaskComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgxSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
-    MDBBootstrapModule.forRoot(),
-    AlertsModule.forRoot(),
-    NgxSpinnerModule,
-    
- ],
-  schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [
-    Web3Service,
-    AuthguardGuard,
-    CustomerGuard
+    MDBBootstrapModule.forRoot()
   ],
-  bootstrap: [AppComponent]
+  schemas: [ NO_ERRORS_SCHEMA ],
+  providers: [AuthguardGuard,CustomerGuard,Web3servicesService],
+  
  
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

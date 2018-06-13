@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Web3Service } from '../services/web3services.service';
+import { Web3servicesService } from '../services/web3services.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import swal from 'sweetalert';
@@ -8,8 +7,6 @@ import { FormBuilder, Validators ,FormGroup,FormControl} from '@angular/forms';
 
 declare let window: any;
 import * as Web3 from 'web3';
-import $ from 'jquery';
-
 
 @Component({
   selector: 'app-transferownership',
@@ -17,7 +14,6 @@ import $ from 'jquery';
   styleUrls: ['./transferownership.component.scss']
 })
 export class TransferownershipComponent implements OnInit {
-
   public address:string; 
   public  _web3: any;
   public id1: any;
@@ -26,7 +22,7 @@ export class TransferownershipComponent implements OnInit {
   public balance:number;
   angForm: FormGroup;
 
-  constructor(public pro: Web3Service,private router:Router,private spinner: NgxSpinnerService,private fb: FormBuilder) {
+  constructor(public pro: Web3servicesService,private router:Router,private spinner: NgxSpinnerService,private fb: FormBuilder) {
     this.createForm();
    }
 
@@ -87,3 +83,4 @@ export class TransferownershipComponent implements OnInit {
      })
   }
 }
+

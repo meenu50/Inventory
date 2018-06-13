@@ -1,14 +1,9 @@
-import { Component, OnInit,NgModule } from '@angular/core';
-
-import { Web3Service } from '../services/web3services.service';
+import { Component, OnInit } from '@angular/core';
+import { Web3servicesService } from '../services/web3services.service';
 import { FormBuilder, Validators ,FormGroup,FormControl} from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {NG_VALIDATORS} from '@angular/forms';
-
-
-
- 
 
 declare let window: any;
 import * as Web3 from 'web3';
@@ -18,19 +13,14 @@ import * as Web3 from 'web3';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss']
 })
-
-
-
-
 export class ProductComponent implements OnInit {
-  
   public productname;
   public brand;
   public quantity;
   public amount;
   angForm: FormGroup;
 
-  constructor(private web3Service:Web3Service,private router:Router,private spinner: NgxSpinnerService,private fb: FormBuilder) {
+  constructor(private web3Service:Web3servicesService,private router:Router,private spinner: NgxSpinnerService,private fb: FormBuilder) {
   
     this.createForm();
 
@@ -114,5 +104,3 @@ export class ProductComponent implements OnInit {
  
   
 }
-
-

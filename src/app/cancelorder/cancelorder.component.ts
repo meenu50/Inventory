@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Web3Service } from '../services/web3services.service';
-import { AlertsService } from 'angular-alert-module';
+import { Web3servicesService } from '../services/web3services.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import swal from 'sweetalert';
@@ -11,14 +9,13 @@ import swal from 'sweetalert';
 declare let window: any;
 import * as Web3 from 'web3';
 
-
 @Component({
   selector: 'app-cancelorder',
   templateUrl: './cancelorder.component.html',
   styleUrls: ['./cancelorder.component.scss']
 })
 export class CancelorderComponent implements OnInit {
- 
+
   public list=[];
   public  _web3: any;
   public id1: any;
@@ -27,7 +24,7 @@ export class CancelorderComponent implements OnInit {
   public balance:number;
   public hashresult;
   
-  constructor(public pro: Web3Service, private alerts: AlertsService,private router:Router,private spinner: NgxSpinnerService) { }
+  constructor(public pro: Web3servicesService,private router:Router,private spinner: NgxSpinnerService) { }
   
   ngOnInit() {
     this.pro.getCustomerCount().then(order=>{
@@ -94,4 +91,3 @@ export class CancelorderComponent implements OnInit {
   }
   
 }
-

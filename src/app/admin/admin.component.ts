@@ -1,10 +1,8 @@
-import { Component, OnInit , OnDestroy } from '@angular/core';
-import { Web3Service } from '../services/web3services.service';
+import { Component, OnInit } from '@angular/core';
+import { Web3servicesService } from '../services/web3services.service';
 import { Router } from '@angular/router';
 declare let window: any;
 import * as Web3 from 'web3';
-
-
 
 @Component({
   selector: 'app-admin',
@@ -12,8 +10,7 @@ import * as Web3 from 'web3';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-  
- 
+
   public  _web3: any;
   public id1: any;
   public id2: any;
@@ -21,7 +18,7 @@ export class AdminComponent implements OnInit {
   public balance:number;
   public product;
 
-  constructor(private wcs:Web3Service,private router:Router){
+  constructor(private wcs:Web3servicesService,private router:Router){
     
   }
  
@@ -43,6 +40,7 @@ export class AdminComponent implements OnInit {
                      } else {
                          alert('Address Change Detected Please Refresh Page');
                          window.location.reload();
+                        // meta.router.navigate(['admin']);
                      }
                  }
              } else {
@@ -56,6 +54,7 @@ export class AdminComponent implements OnInit {
           meta.wcs.getAccount().then(account => this.balance = account);
         //  meta.alltablework();
       }, 20000);
+      
       
     }
    

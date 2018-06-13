@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Web3Service } from '../services/web3services.service';
+import { Web3servicesService } from '../services/web3services.service';
 import { Router } from '@angular/router';
 
 declare let window: any;
@@ -24,7 +23,7 @@ export class StockproductComponent implements OnInit {
   public account:string;
   public balance:number;
 
-  constructor(private pro:Web3Service,private router:Router) { 
+  constructor(private pro:Web3servicesService,private router:Router) { 
   }
 
   ngOnInit() {

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Web3Service } from '../services/web3services.service';
+import { Web3servicesService } from '../services/web3services.service';
 import { Router } from '@angular/router';
 
 declare let window: any;
 import * as Web3 from 'web3';
-
 
 
 @Component({
@@ -22,7 +21,7 @@ export class ViewcusOrderComponent implements OnInit {
   public balance:number;
 
 
-  constructor(private web3Service:Web3Service,private router:Router) { }
+  constructor(private web3Service:Web3servicesService,private router:Router) { }
 
   ngOnInit() {
      this.web3Service.getCustomerCount().then(order=>{
@@ -73,3 +72,4 @@ export class ViewcusOrderComponent implements OnInit {
   }
 
 }
+

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Web3Service } from '../services/web3services.service';
+import { Web3servicesService } from '../services/web3services.service';
 import { Router } from '@angular/router';
 declare let window: any;
 import * as Web3 from 'web3';
@@ -13,7 +13,7 @@ export class MetamaskComponent implements OnInit {
   public  _web3: any;
   public id1: any;
 
-  constructor(private wcs: Web3Service, private router: Router) {  }
+  constructor(private wcs: Web3servicesService, private router: Router) {  }
 
   ngOnInit() {
     let meta = this;

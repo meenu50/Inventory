@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Web3Service } from '../services/web3services.service';
+import { Web3servicesService } from '../services/web3services.service';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators ,FormGroup,FormControl} from '@angular/forms';
 
@@ -16,7 +15,7 @@ import swal from 'sweetalert';
   styleUrls: ['./withdraw.component.scss']
 })
 export class WithdrawComponent implements OnInit {
- 
+
   public amount;
   public  _web3: any;
   public id1: any;
@@ -26,7 +25,7 @@ export class WithdrawComponent implements OnInit {
   public bla;
   angForm: FormGroup;
 
-  constructor(public pro: Web3Service,private router:Router,private spinner: NgxSpinnerService,private fb: FormBuilder) { 
+  constructor(public pro: Web3servicesService,private router:Router,private spinner: NgxSpinnerService,private fb: FormBuilder) { 
       this.createForm();
   }
 
@@ -45,7 +44,7 @@ export class WithdrawComponent implements OnInit {
                          meta.router.navigate(['metamask']);
                          clearInterval(this.interval);
                      } else {
-                         alert('Address Change Detected Please Refresh Page');
+                       //  alert('Address Change Detected Please Refresh Page');
                      }
                  }
              } else {

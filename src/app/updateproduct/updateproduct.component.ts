@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Web3Service } from '../services/web3services.service';
+import { Web3servicesService } from '../services/web3services.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
@@ -8,13 +7,13 @@ import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
 declare let window: any;
 import * as Web3 from 'web3';
 
-
 @Component({
   selector: 'app-updateproduct',
   templateUrl: './updateproduct.component.html',
   styleUrls: ['./updateproduct.component.scss']
 })
 export class UpdateproductComponent implements OnInit {
+
   public productid;
   public quantity;
   public price;
@@ -27,7 +26,7 @@ export class UpdateproductComponent implements OnInit {
   public id=[];
    angForm: FormGroup;
 
-  constructor(public pro: Web3Service,private router:Router,private spinner: NgxSpinnerService,private fb: FormBuilder) { 
+  constructor(public pro: Web3servicesService,private router:Router,private spinner: NgxSpinnerService,private fb: FormBuilder) { 
     this.createForm();
   }
 
@@ -40,6 +39,7 @@ export class UpdateproductComponent implements OnInit {
          // console.log(obj);
           if(obj[3]==0 && obj[1]!="")
           {
+            obj[4]=obj[4]/100;
             this.details.push({"pid":obj[0],"pname":obj[1],"brand":obj[2],"quantity":obj[3],"price":obj[4]});
           }
         })
@@ -130,5 +130,6 @@ export class UpdateproductComponent implements OnInit {
   }
 }
   
+
 
 

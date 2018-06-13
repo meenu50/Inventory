@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Web3Service } from '../services/web3services.service';
+import { Web3servicesService } from '../services/web3services.service';
 import { Router } from '@angular/router';
 
 declare let window: any;
 import * as Web3 from 'web3';
+
 
 @Component({
   selector: 'app-customer',
@@ -18,7 +19,7 @@ export class CustomerComponent implements OnInit {
   public balance:number;
 
   
-  constructor(public pro: Web3Service,private router:Router) { }
+  constructor(public pro: Web3servicesService,private router:Router) { }
   
   ngOnInit() {
    
@@ -54,3 +55,4 @@ export class CustomerComponent implements OnInit {
     
   }
 }
+

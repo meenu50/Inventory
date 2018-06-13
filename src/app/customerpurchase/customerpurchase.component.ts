@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators ,FormGroup,FormControl} from '@angular/forms';
 
-import { Web3Service } from '../services/web3services.service';
+import { Web3servicesService } from '../services/web3services.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import swal from 'sweetalert';
-import { FormBuilder, Validators ,FormGroup,FormControl} from '@angular/forms';
+
 
 declare let window: any;
 import * as Web3 from 'web3';
-
-
 @Component({
   selector: 'app-customerpurchase',
   templateUrl: './customerpurchase.component.html',
@@ -29,7 +28,7 @@ export class CustomerpurchaseComponent implements OnInit {
   public balance:number;
   angForm: FormGroup;
 
-  constructor(public pro: Web3Service,private router:Router,private spinner: NgxSpinnerService, private fb: FormBuilder) {
+  constructor(public pro: Web3servicesService,private router:Router,private spinner: NgxSpinnerService, private fb: FormBuilder) {
     this.createForm();
    }
 
@@ -110,23 +109,34 @@ export class CustomerpurchaseComponent implements OnInit {
           if(res[0]== this.productid){
            
           }
+          else{
+            swal("Invalid Product id")
+          }
           
     })
  }
- checkOut(){
-   this.pro.ViewProduct(this.productid).then(res=>{
-         if(res[0]== this.productid && res[4]!=0){
-           //swal("valid");
-         }
-         else{
-            swal("Invalid Product Id");
-         }
-   })
+ check1(){
+  this.pro.ViewProduct(this.productid).then(res=>{
+        if(res[0]== this.productid){
+         
+        }
+        
+  })
 }
+//  checkOut(){
+//    this.pro.ViewProduct(this.productid).then(res=>{
+//          if(res[0]== this.productid && res[4]!=0){
+//            //swal("valid");
+//          }
+//          else{
+//             swal("Invalid Product Id");
+//          }
+//    })
+// }
 quantitycheckOut(){
   this.pro.ViewProduct(this.productid).then(res=>{
-        if( res[4]!=0){
-          swal("valid");
+        if( res[3]!=0){
+         //s swal("valid");
         }
         else{
            swal("Out Of Stock");
@@ -161,3 +171,4 @@ quantitycheckOut(){
     })
   }
 }
+
